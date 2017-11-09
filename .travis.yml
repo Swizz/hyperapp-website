@@ -4,6 +4,10 @@ node_js:
 
 script: npm run build
 
+after_success:
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ];then exit 0; fi'
+  - surge --project dist --domain hyperapp-website-pr-$TRAVIS_PULL_REQUEST.surge.sh
+
 deploy:
   fqdn: hyperapp.js.org
   local_dir: dist
